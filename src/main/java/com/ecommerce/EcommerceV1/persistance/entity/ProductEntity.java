@@ -1,8 +1,6 @@
 package com.ecommerce.EcommerceV1.persistance.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,9 +32,13 @@ public class ProductEntity {
     @UpdateTimestamp
     private LocalDateTime dateUpdated;
 
-    private String idUser;
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private UserEntity userEntity;
 
-    private String idCategory;
+    @ManyToOne
+    @JoinColumn(name = "idCategory")
+    private CategoryEntity categoryEntity;
 
     private boolean enabled = true;
 
