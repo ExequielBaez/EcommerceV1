@@ -54,7 +54,8 @@ public class ProductController {
         productEntity.setNameProduct(nameProduct);
         productEntity.setDescription(description);
         productEntity.setPrice(price);
-        //productEntity.setUrlImage(urlImage);
+        productEntity.setCode(code);
+        productEntity.setUrlImage(urlImage);
         //productEntity.setUserEntity(idUser);
         //productEntity.setCategoryEntity();
 
@@ -64,7 +65,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
-    @PutMapping("{idProduct}")
+    @DeleteMapping("{idProduct}")
     public ResponseEntity<?> disableProduct(@PathVariable String idProduct){
 
         productService.disableProduct(idProduct);
