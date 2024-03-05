@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,26 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody ProductEntity productEntity){
+    public ResponseEntity<?> createProduct(@RequestParam("idProduct") String idProduct,
+                                           @RequestParam("code") String code,
+                                           @RequestParam("nameProduct") String nameProduct,
+                                           @RequestParam("description") String description,
+                                           @RequestParam("price") BigDecimal price,
+                                           @RequestParam("urlImage") String urlImage
+                                           //@RequestParam("idUser") String idUser,
+                                          // @RequestParam("idCategory") String idCategory
+                                           ){
+
+        ProductEntity productEntity = new ProductEntity();
+
+        productEntity.setIdProduct(idProduct);
+        productEntity.setNameProduct(nameProduct);
+        productEntity.setDescription(description);
+        productEntity.setPrice(price);
+        //productEntity.setUrlImage(urlImage);
+        //productEntity.setUserEntity(idUser);
+        //productEntity.setCategoryEntity();
+
 
         ProductEntity product = productService.createProduct(productEntity);
 
