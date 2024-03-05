@@ -21,6 +21,7 @@ export class ProductService {
   }
 
   deleteProductById(id:string):Observable<any>{
+    console.log(id)
     return this.httpClient.delete(this.apiUrl +"/"+id)
   }
 
