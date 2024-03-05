@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 
 
@@ -19,11 +20,13 @@ export class ProductAddComponent implements OnInit{
   idUser : string = "1";
   idCategory : string = "90723e75-4f05-4ca9-a31f-867b1abac01b";
 
-  constructor(private productService : ProductService){
+  constructor(private productService : ProductService, private router : Router, 
+              private activatedRoute : ActivatedRoute){
 
   }
   
   ngOnInit(): void {
+    this.getProductById();
    
   }
 
@@ -31,7 +34,7 @@ export class ProductAddComponent implements OnInit{
     const formData = new FormData(); 
     formData.append('idProduct',this.idProduct);
     formData.append('code', this.code);
-    formData.append('name', this.nameProduct);
+    formData.append('nameProduct', this.nameProduct);
     formData.append('description', this.description);
     formData.append('price', this.price.toString());
     formData.append('urlImage', this.urlImage);
@@ -39,6 +42,37 @@ export class ProductAddComponent implements OnInit{
     formData.append('idcategory', this.idCategory);
 
     console.log(formData);
+
+    this.productService.createProduct(formData).subscribe(
+      data => {console.log(data);
+        this.router.navigate(['admin/product']);
+      }
+    );    
+  }
+
+  getProductById(){
+    this.activatedRoute.params.subscribe(
+      product =>{
+        let id = product['id'];
+        if(id){
+          console.log('el valor de la variable id es: '+id);
+          this.productService.getProductById(id).subscribe(
+            data =>{
+              this.idProduct = data.idProduct;
+              this.code = data.code;
+              this.nameProduct = data.nameProduct;
+              this.description = data.description;
+              this.urlImage = data.urlImage;
+              this.price = parseInt(data.price);
+              this.idUser = data.idUser;
+              this.idCategory = data.idCategory;
+            }
+          )
+        }
+      }
+    );
+
+
   }
 
 }
