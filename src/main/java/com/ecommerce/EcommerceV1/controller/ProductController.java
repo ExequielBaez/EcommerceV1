@@ -1,6 +1,7 @@
 package com.ecommerce.EcommerceV1.controller;
 
 
+import com.ecommerce.EcommerceV1.controller.dto.ProductDTO;
 import com.ecommerce.EcommerceV1.persistance.entity.ProductEntity;
 import com.ecommerce.EcommerceV1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,17 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<?> getAllProducts(){
 
-        List<ProductEntity> productEntityList = productService.getAllProducts();
+        List<ProductDTO> productDTOList = productService.getAllProducts();
 
-        return ResponseEntity.status(HttpStatus.OK).body(productEntityList);
+        return ResponseEntity.status(HttpStatus.OK).body(productDTOList);
     }
 
     @GetMapping("{idProduct}")
     public ResponseEntity<?> getProductById(@PathVariable String idProduct){
 
-        ProductEntity productEntity = productService.getProductById(idProduct);
+        ProductDTO productDTO = productService.getProductById(idProduct);
 
-        return ResponseEntity.status(HttpStatus.OK).body(productEntity);
+        return ResponseEntity.status(HttpStatus.OK).body(productDTO);
     }
 
     @PostMapping
@@ -59,10 +60,9 @@ public class ProductController {
         //productEntity.setUserEntity(idUser);
         //productEntity.setCategoryEntity();
 
+        ProductDTO productDTO = productService.createProduct(productEntity);
 
-        ProductEntity product = productService.createProduct(productEntity);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }
 
     @DeleteMapping("{idProduct}")
