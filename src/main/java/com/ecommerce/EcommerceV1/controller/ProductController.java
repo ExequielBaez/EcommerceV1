@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -44,10 +46,11 @@ public class ProductController {
                                            @RequestParam("nameProduct") String nameProduct,
                                            @RequestParam("description") String description,
                                            @RequestParam("price") BigDecimal price,
-                                           @RequestParam("urlImage") String urlImage
+                                           @RequestParam("urlImage") String urlImage,
+                                           @RequestParam(value = "image", required = false)MultipartFile multipartFile
                                            //@RequestParam("idUser") String idUser,
-                                          // @RequestParam("idCategory") String idCategory
-                                           ){
+                                           // @RequestParam("idCategory") String idCategory
+                                           ) throws IOException {
 
         ProductEntity productEntity = new ProductEntity();
 
@@ -60,7 +63,7 @@ public class ProductController {
         //productEntity.setUserEntity(idUser);
         //productEntity.setCategoryEntity();
 
-        ProductDTO productDTO = productService.createProduct(productEntity);
+        ProductDTO productDTO = productService.createProduct(productEntity, multipartFile);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }

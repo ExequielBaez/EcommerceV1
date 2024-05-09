@@ -20,6 +20,8 @@ export class ProductAddComponent implements OnInit{
   idUser : string = "1";
   idCategory : string = "90723e75-4f05-4ca9-a31f-867b1abac01b";
 
+  selectFile! : File;//esta variable puede ser nula le decimos con el !
+
   constructor(private productService : ProductService, private router : Router, 
               private activatedRoute : ActivatedRoute){
 
@@ -40,6 +42,7 @@ export class ProductAddComponent implements OnInit{
     formData.append('urlImage', this.urlImage);
     formData.append('idUser', this.idUser);
     formData.append('idcategory', this.idCategory);
+    formData.append('image', this.selectFile)
 
     console.log(formData);
 
@@ -71,8 +74,10 @@ export class ProductAddComponent implements OnInit{
         }
       }
     );
-
-
   }
 
+
+  onFileSelected(event : any){//nombre de metodo lo pongo yo
+    this.selectFile = event.target.files[0];
+  }
 }
