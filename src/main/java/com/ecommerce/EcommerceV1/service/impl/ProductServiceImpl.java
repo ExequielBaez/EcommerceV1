@@ -6,13 +6,19 @@ import com.ecommerce.EcommerceV1.persistance.entity.ProductEntity;
 import com.ecommerce.EcommerceV1.persistance.mappers.ProductMapper;
 import com.ecommerce.EcommerceV1.persistance.repository.ProductRepository;
 import com.ecommerce.EcommerceV1.service.ProductService;
+import com.ecommerce.EcommerceV1.service.UploadFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private UploadFileService uploadFileService;
     @Autowired
     private ProductMapper productMapper;
     @Override
@@ -29,7 +35,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO createProduct(ProductEntity productEntity) {
+    public ProductDTO createProduct(ProductEntity productEntity, MultipartFile multipartFile) throws IOException {
+
+        if(!productEntity.getIdProduct().isEmpty()){//cuando es un producto modificado
+            if(multipartFile.isEmpty()){//imagen anterior
+                productEntity.setUrlImage(productEntity.getUrlImage());
+            }else{//imagen del usuario
+                productEntity.setUrlImage(uploadFileService.upload(multipartFile));
+            }
+        }else{// producto nuevo
+            productEntity.setUrlImage(uploadFileService.upload(multipartFile));
+        }
         return productMapper.toProductDto(productRepository.save(productEntity));
     }
 
