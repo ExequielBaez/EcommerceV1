@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ProductService } from 'src/app/services/product.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class ProductAddComponent implements OnInit{
   selectFile! : File;//esta variable puede ser nula le decimos con el !
 
   constructor(private productService : ProductService, private router : Router, 
-              private activatedRoute : ActivatedRoute){
+              private activatedRoute : ActivatedRoute, private toastr: ToastrService){
 
   }
   
@@ -48,6 +50,28 @@ export class ProductAddComponent implements OnInit{
 
     this.productService.createProduct(formData).subscribe(
       data => {console.log(data);
+        if(this.idProduct === ""){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Producto Agregado!!",
+            showConfirmButton: false,
+            timer: 2000
+          });
+
+
+          // this.toastr.success('Producto Registrado', 'Productos');
+        }else{
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Producto Modificado!!",
+            showConfirmButton: false,
+            timer: 2000
+          });
+        //  this.toastr.success('Producto Modificado', 'Productos');
+        }
+        
         this.router.navigate(['admin/product']);
       }
     );    
