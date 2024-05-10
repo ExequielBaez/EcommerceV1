@@ -1,19 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import 'ngx-toastr/toastr';
 body {
     padding-top: 56px;
   }
 
+.product-box  {
+  
+  width: 330px; /* Tamaño fijo del div */
+  height: 460px;
+  overflow: hidden;
+ 
+}
 
-
- .product-box img {
-  width: 250px;
+.product-box img {
+  
+  width: 240px; 
+  height: 300px; 
+  display: block;
+  margin: auto; 
+  /*width: 250px;*/
+  
   padding-bottom: 50px;
+  
 }
 
 .product-show{
-  padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 a.primary-btn:hover{
@@ -30,6 +44,7 @@ a.primary-btn:hover{
 .product-box h2{
   font-size:18px;
   padding-bottom:0;
+  padding-left: 20px;
   font-weight:500;
   color:#585858
 }
