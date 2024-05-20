@@ -21,7 +21,8 @@ export class CategoryAddComponent implements OnInit{
 
               }
   
-  ngOnInit(): void {    
+  ngOnInit(): void {   
+    this.getCategoryById(); 
     }
 
   addCategory(){
@@ -39,6 +40,23 @@ export class CategoryAddComponent implements OnInit{
         this.router.navigate(['admin/category']);
       }
     )
+  }
+
+  getCategoryById(){
+    this.activatedRoute.params.subscribe(
+      category =>{
+        let id = category['id'];
+        if(id){
+          console.log("Este es el id: "+id);
+          this.categoryService.getCategoryById(id).subscribe(
+            data => {
+              this.idCategory =data.idCategory;
+              this.nameCategory = data.nameCategory;
+            }  
+          )
+        }
+      } 
+    );
   }
 
 }

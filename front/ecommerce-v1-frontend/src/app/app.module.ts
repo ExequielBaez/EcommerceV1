@@ -21,6 +21,7 @@ const routes : Routes = [
   {path:'admin/product/update/:id', component: ProductAddComponent },
   {path:'admin/category', component: CategoryListComponent },
   {path:'admin/category/addcategory', component: CategoryAddComponent },
+  {path:'admin/category/update/:id', component: CategoryAddComponent },
 
 ];
 
