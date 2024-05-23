@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/common/category';
+import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import Swal from 'sweetalert2';
 
@@ -24,13 +26,17 @@ export class ProductAddComponent implements OnInit{
 
   selectFile! : File;//esta variable puede ser nula le decimos con el !
 
+  categories : Category [] = []; 
+
   constructor(private productService : ProductService, private router : Router, 
-              private activatedRoute : ActivatedRoute, private toastr: ToastrService){
+              private activatedRoute : ActivatedRoute, private toastr: ToastrService,
+              private categoryService: CategoryService){
 
   }
   
   ngOnInit(): void {
     this.getProductById();
+    this.getCategories();
    
   }
 
@@ -43,7 +49,7 @@ export class ProductAddComponent implements OnInit{
     formData.append('price', this.price.toString());
     formData.append('urlImage', this.urlImage);
     formData.append('idUser', this.idUser);
-    formData.append('idcategory', this.idCategory);
+    formData.append('idCategory', this.idCategory);
     formData.append('image', this.selectFile)
 
     console.log(formData);
@@ -54,7 +60,7 @@ export class ProductAddComponent implements OnInit{
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Producto Agregado!!",
+            title: "Producto Agregado!",
             showConfirmButton: false,
             timer: 2000
           });
@@ -65,7 +71,7 @@ export class ProductAddComponent implements OnInit{
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Producto Modificado!!",
+            title: "Producto Modificado!",
             showConfirmButton: false,
             timer: 2000
           });
@@ -103,5 +109,11 @@ export class ProductAddComponent implements OnInit{
 
   onFileSelected(event : any){//nombre de metodo lo pongo yo
     this.selectFile = event.target.files[0];
+  }
+
+  getCategories(){
+    return this.categoryService.getCategoryList().subscribe(
+      data => this.categories = data
+    );
   }
 }
