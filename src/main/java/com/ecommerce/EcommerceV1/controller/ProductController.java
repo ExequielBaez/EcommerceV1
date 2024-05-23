@@ -2,7 +2,9 @@ package com.ecommerce.EcommerceV1.controller;
 
 
 import com.ecommerce.EcommerceV1.controller.dto.ProductDTO;
+import com.ecommerce.EcommerceV1.persistance.entity.CategoryEntity;
 import com.ecommerce.EcommerceV1.persistance.entity.ProductEntity;
+import com.ecommerce.EcommerceV1.service.CategoryService;
 import com.ecommerce.EcommerceV1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<?> getAllProducts(){
@@ -47,23 +52,26 @@ public class ProductController {
                                            @RequestParam("description") String description,
                                            @RequestParam("price") BigDecimal price,
                                            @RequestParam("urlImage") String urlImage,
-                                           @RequestParam(value = "image", required = false)MultipartFile multipartFile
-                                           //@RequestParam("idUser") String idUser,
-                                           // @RequestParam("idCategory") String idCategory
+                                           @RequestParam(value = "image", required = false)MultipartFile multipartFile,
+                                           @RequestParam("idCategory") String idCategory,
+                                           @RequestParam("idUser") String idUser
+
                                            ) throws IOException {
 
-        ProductEntity productEntity = new ProductEntity();
+        ProductDTO product = new ProductDTO();
 
-        productEntity.setIdProduct(idProduct);
-        productEntity.setNameProduct(nameProduct);
-        productEntity.setDescription(description);
-        productEntity.setPrice(price);
-        productEntity.setCode(code);
-        productEntity.setUrlImage(urlImage);
-        //productEntity.setUserEntity(idUser);
-        //productEntity.setCategoryEntity();
+        product.setIdProduct(idProduct);
+        product.setNameProduct(nameProduct);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setCode(code);
+        product.setUrlImage(urlImage);
+        product.setIdCategory(idCategory);
+        product.setIdUser(idUser);
 
-        ProductDTO productDTO = productService.createProduct(productEntity, multipartFile);
+
+
+        ProductDTO productDTO = productService.createProduct(product, multipartFile);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }

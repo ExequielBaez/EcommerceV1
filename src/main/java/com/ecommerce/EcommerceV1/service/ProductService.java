@@ -12,7 +12,7 @@ public interface ProductService {
 
     ProductDTO getProductById(String idProduct);
 
-    ProductDTO createProduct(ProductEntity productEntity, MultipartFile multipartFile) throws IOException;
+    ProductDTO createProduct(ProductDTO productDTO, MultipartFile multipartFile) throws IOException;
 
     void disableProduct(String idProduct);
 }

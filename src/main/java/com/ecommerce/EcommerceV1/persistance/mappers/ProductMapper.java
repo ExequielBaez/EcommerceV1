@@ -2,6 +2,7 @@ package com.ecommerce.EcommerceV1.persistance.mappers;
 
 import com.ecommerce.EcommerceV1.controller.dto.ProductDTO;
 import com.ecommerce.EcommerceV1.persistance.entity.ProductEntity;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -26,4 +27,6 @@ public interface ProductMapper {
     ProductDTO toProductDto(ProductEntity productEntity);
     List<ProductDTO> toProductDTOList(List<ProductEntity> productEntityIterable);
 
+    @InheritInverseConfiguration
+    ProductEntity toProductEntity(ProductDTO productDTO);
 }

@@ -37,7 +37,7 @@ public class CategoryController {
 
     }
 
-    @PutMapping
+    @DeleteMapping("{idCategory}")
     public ResponseEntity<?> disableCategory(@PathVariable String idCategory){
 
         categoryService.disableCategory(idCategory);

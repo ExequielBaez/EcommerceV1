@@ -37,25 +37,25 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO createProduct(ProductEntity productEntity, MultipartFile multipartFile) throws IOException {
+    public ProductDTO createProduct(ProductDTO product, MultipartFile multipartFile) throws IOException {
 
-        if(!productEntity.getIdProduct().isEmpty()){//cuando es un producto modificado
+        if(!product.getIdProduct().isEmpty()){//cuando es un producto modificado
             if(multipartFile==null){//imagen anterior
-                productEntity.setUrlImage(productEntity.getUrlImage());
+                product.setUrlImage(product.getUrlImage());
             }else{//imagen del usuario
-                log.info("nombre de la url: {}", productEntity.getUrlImage());
-                String nameFile = productEntity.getUrlImage().substring(29);
+                log.info("nombre de la url: {}", product.getUrlImage());
+                String nameFile = product.getUrlImage().substring(29);
                 log.info("nombre de la imagen: {}", nameFile);
                 if(!nameFile.equals("no image.jpg")){
                     uploadFileService.delete(nameFile);
                 }
-                productEntity.setUrlImage(uploadFileService.upload(multipartFile));
+                product.setUrlImage(uploadFileService.upload(multipartFile));
             }
         }else{// producto nuevo
 
-            productEntity.setUrlImage(uploadFileService.upload(multipartFile));
+            product.setUrlImage(uploadFileService.upload(multipartFile));
         }
-        return productMapper.toProductDto(productRepository.save(productEntity));
+        return productMapper.toProductDto(productRepository.save(productMapper.toProductEntity(product)));
     }
 
     @Override

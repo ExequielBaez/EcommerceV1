@@ -1,5 +1,6 @@
 package com.ecommerce.EcommerceV1.service.impl;
 
+import com.ecommerce.EcommerceV1.controller.dto.ProductDTO;
 import com.ecommerce.EcommerceV1.exceptions.RegisterNotFound;
 import com.ecommerce.EcommerceV1.persistance.entity.CategoryEntity;
 import com.ecommerce.EcommerceV1.persistance.repository.CategoryRepository;
@@ -18,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryEntity> getAllCategories() {
 
-        List<CategoryEntity> categoryList = categoryRepository.findAll();
+        List<CategoryEntity> categoryList = categoryRepository.findAllEnable();
         return categoryList;
     }
     @Override
