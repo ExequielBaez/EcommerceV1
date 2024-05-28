@@ -43,7 +43,7 @@
               <h2 class="card-text"> {{p.price}} </h2>
               
               <div class="product-show">
-                <a href="#" class="primary-btn">Ver producto</a>
+                <a [routerLink]="['/cart/detailproduct, p.idProduct']" class="primary-btn">Ver producto</a>
               </div>
             </div>
           </div>

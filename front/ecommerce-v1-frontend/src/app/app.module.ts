@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CategoryAddComponent } from './components/category/category-add/category-add.component';
+import { DetailProductComponent } from './components/cart/detail-product/detail-product.component';
 
 
 const routes : Routes = [
@@ -22,6 +23,7 @@ const routes : Routes = [
   {path:'admin/category', component: CategoryListComponent },
   {path:'admin/category/addcategory', component: CategoryAddComponent },
   {path:'admin/category/update/:id', component: CategoryAddComponent },
+  {path:'cart/detailproduct/:id', component: DetailProductComponent}
 
 ];
 
@@ -33,7 +35,8 @@ const routes : Routes = [
     HeaderAdminComponent,
     ProductAddComponent,
     CategoryListComponent,
-    CategoryAddComponent
+    CategoryAddComponent,
+    DetailProductComponent
   ],
   imports: [
     BrowserModule,
