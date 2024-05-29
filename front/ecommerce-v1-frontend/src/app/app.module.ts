@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CategoryListComponent } from './components/category/category-list/category-list.component';
 import { CategoryAddComponent } from './components/category/category-add/category-add.component';
 import { DetailProductComponent } from './components/cart/detail-product/detail-product.component';
+import { HeaderUserComponent } from './components/header-user/header-user.component';
 
 
 const routes : Routes = [
@@ -36,7 +37,8 @@ const routes : Routes = [
     ProductAddComponent,
     CategoryListComponent,
     CategoryAddComponent,
-    DetailProductComponent
+    DetailProductComponent,
+    HeaderUserComponent
   ],
   imports: [
     BrowserModule,
