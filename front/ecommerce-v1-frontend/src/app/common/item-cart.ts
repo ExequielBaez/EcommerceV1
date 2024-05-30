@@ -1,5 +1,5 @@
 export class ItemCart {
-    constructor(public idProduct:String, 
+    constructor(public idProduct:string, 
                 public nameProduct:string,
                 public quantity:number,
                 public price:number){
