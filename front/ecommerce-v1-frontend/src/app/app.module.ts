@@ -14,6 +14,8 @@ import { CategoryListComponent } from './components/category/category-list/categ
 import { CategoryAddComponent } from './components/category/category-add/category-add.component';
 import { DetailProductComponent } from './components/cart/detail-product/detail-product.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SumaryOrderComponent } from './components/orders/sumary-order/sumary-order.component';  
 
 
 const routes : Routes = [
@@ -24,7 +26,8 @@ const routes : Routes = [
   {path:'admin/category', component: CategoryListComponent },
   {path:'admin/category/addcategory', component: CategoryAddComponent },
   {path:'admin/category/update/:id', component: CategoryAddComponent },
-  {path:'cart/detailproduct/:id', component: DetailProductComponent}
+  {path:'cart/detailproduct/:id', component: DetailProductComponent},
+  {path:'cart/sumary', component: SumaryOrderComponent}
 
 ];
 
@@ -38,12 +41,14 @@ const routes : Routes = [
     CategoryListComponent,
     CategoryAddComponent,
     DetailProductComponent,
-    HeaderUserComponent
+    HeaderUserComponent,
+    SumaryOrderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(),
     

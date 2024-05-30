@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ItemCart } from 'src/app/common/item-cart';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -24,7 +26,8 @@ export class DetailProductComponent implements OnInit{
 
   constructor(private productService:ProductService, 
               private activatedRoute:ActivatedRoute,
-              private cartService:CartService){
+              private cartService:CartService,
+              private toastr:ToastrService){
   }
 
   getProductById(){
@@ -52,6 +55,16 @@ export class DetailProductComponent implements OnInit{
     console.log('name product', this.nameProduct);
     console.log('price product', this.price);
     console.log('quantity', this.quantity);
+
+    let item = new ItemCart(this.idProduct, this.nameProduct, this.quantity, this.price);
+
+    this.cartService.addItemCart(item);
+
+    console.log("Total carrito: ");
+    console.log(this.cartService.totalCart());
+
+    this.toastr.success('Producto agregado al carrito!', 'Carrito compras');
+
 
   }
 }
