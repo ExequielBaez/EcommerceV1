@@ -1,5 +1,6 @@
 package com.ecommerce.EcommerceV1.service;
 
+import com.ecommerce.EcommerceV1.enums.OrderState;
 import com.ecommerce.EcommerceV1.persistance.entity.OrderEntity;
 import org.springframework.http.ResponseEntity;
 
@@ -11,4 +12,8 @@ public interface OrderService {
     OrderEntity getOrderById(String idOrder);
 
     OrderEntity save(OrderEntity orderEntity);
+
+    List<OrderEntity> findByUserId(String idUser);
+
+    void updateStateById(String idOrder, String state);
 }
